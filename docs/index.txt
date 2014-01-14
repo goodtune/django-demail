@@ -1,22 +1,14 @@
-.. Delegated Email Backend documentation master file, created by
-   sphinx-quickstart on Tue Jan 14 08:34:09 2014.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+Welcome to demail's documentation!
+==================================
 
-Welcome to Delegated Email Backend's documentation!
-===================================================
+This is a reusable email backend that will rewrite the recipient lists on any
+messages to ensure they are not leaked to users in pre-production environments.
 
-Contents:
+Table of Contents
+-----------------
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
+   intro
+   settings

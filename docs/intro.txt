@@ -1,0 +1,32 @@
+============
+About demail
+============
+
+``demail`` delegates delivery to any other Django email backend and does not
+clobber any standard configuration directives, except for ``EMAIL_BACKEND``
+which is required to ensure ``demail`` is the default backend.
+
+Typical Use Case
+----------------
+
+You have a project that requires a pre-production environment for production
+support. You have production data, including real email addresses, for users
+and you'd like to ensure that any notifications sent by your application will
+never escape and be delivered to the user.
+
+However to validate your testing of an issue you still need to see the email
+delivered, routed by the same backend as in production.
+
+By using ``demail`` as your backend you can configure your pre-production
+environment as for production, and let it take care of re-addressing emails for
+you - no data masking required.
+
+Compatability
+-------------
+
+We make no effort to do anything other than re-write the destination email
+addresses at the time Django attempts email delivery, so all backends *should
+be* 100% compatible.
+
+We accomplish this by applying rules to each recipient on the ``to``, ``cc``
+and ``bcc`` lists, and then passing control onto the delegated backend.
