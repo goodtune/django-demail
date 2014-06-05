@@ -27,6 +27,11 @@ INSTALLED_APPS = (
     'demail',
 )
 
+# Critical that the DEMAIL_BACKEND defaults to LocMem as this is what the test
+# environment will expect. Inspecting the ``mail.outbox`` in tests will fail
+# if the test case uses a different backend.
+DEMAIL_BACKEND = 'django.core.mail.backends.locmem.EmailBackend'
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
