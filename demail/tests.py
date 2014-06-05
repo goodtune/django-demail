@@ -28,7 +28,8 @@ class DelegateEmailTest(TestCase):
             'john.reynolds@touchtechnology.com.au',
         ]
 
-    @override_settings(EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend')
+    @override_settings(
+        EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend')
     def test_pass_through(self):
         mail.send_mail(u'Subject',
                        u'',
@@ -87,7 +88,8 @@ class DelegateEmailTest(TestCase):
         self.assertEqual(mail.outbox[0].subject, 'Subject')
         self.assertEqual(mail.outbox[0].to, recipients)
 
-    # @override_settings(DEMAIL_BACKEND='django.core.mail.backends.console.EmailBackend')
+    # @override_settings(
+    #     DEMAIL_BACKEND='django.core.mail.backends.console.EmailBackend')
     # def test_backend(self):
     #     mail.send_mail(u'Subject',
     #                    u'',

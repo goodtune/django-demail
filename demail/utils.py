@@ -38,7 +38,8 @@ def translate(message):
     return message
 
 
-def rewrite_recipient_address(addr, allowed_domains, allowed_recipients, rewrite_domain):
+def rewrite_recipient_address(addr, allowed_domains, allowed_recipients,
+                              rewrite_domain):
     """
     Given a destination email address, determine if it is acceptable to
     deliver email directly to this address. If it is not then we rewrite the
