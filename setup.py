@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = "0.2dev"
+version = "0.2"
 
 setup(
     name='django-demail',
@@ -17,7 +17,6 @@ setup(
     include_package_data=True,
     zip_safe=False,
     classifiers=[
-        'Development Status :: 3 - Alpha',
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
         'Operating System :: OS Independent',
