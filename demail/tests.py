@@ -88,6 +88,22 @@ class DelegateEmailTest(TestCase):
         self.assertEqual(mail.outbox[0].subject, 'Subject')
         self.assertEqual(mail.outbox[0].to, recipients)
 
+    @override_settings(DEMAIL_REWRITE_RECIPIENT='test@example.com')
+    def test_rewrite_recipient(self):
+        mail.send_mail(u'Subject',
+                       u'',
+                       settings.DEFAULT_FROM_EMAIL,
+                       self.recipient_list)
+
+        recipients = [
+            'test+gary=touch.asn.au@example.com',
+            'test+john.reynolds=touchtechnology.com.au@example.com',
+        ]
+
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, 'Subject')
+        self.assertEqual(mail.outbox[0].to, recipients)
+
     # @override_settings(
     #     DEMAIL_BACKEND='django.core.mail.backends.console.EmailBackend')
     # def test_backend(self):

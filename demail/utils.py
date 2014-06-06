@@ -5,8 +5,6 @@ from django.conf import settings
 
 logger = logging.getLogger(__name__)
 
-DEMAIL_REWRITE_MAILBOX = None
-
 TRANS = {
     r'@': '=',
     r'\+': '-',
@@ -21,15 +19,18 @@ def translate(message):
     allowed_recipients = getattr(settings, 'DEMAIL_ALLOWED_RECIPIENTS', ())
     allowed_domains = getattr(settings, 'DEMAIL_ALLOWED_DOMAINS', ())
     rewrite_domain = getattr(settings, 'DEMAIL_REWRITE_DOMAIN', 'example.com')
+    rewrite_recipient = getattr(settings, 'DEMAIL_REWRITE_RECIPIENT', None)
 
     logger.debug('ALLOWED_RECIPIENTS = %r', allowed_recipients)
     logger.debug('ALLOWED_DOMAINS = %r', allowed_domains)
     logger.debug('REWRITE_DOMAIN = %r', rewrite_domain)
+    logger.debug('REWRITE_RECIPIENT = %r', rewrite_recipient)
 
     rewrite = lambda addr: rewrite_recipient_address(addr,
                                                      allowed_domains,
                                                      allowed_recipients,
-                                                     rewrite_domain)
+                                                     rewrite_domain,
+                                                     rewrite_recipient)
 
     message.to = map(rewrite, message.to)
     message.cc = map(rewrite, message.cc)
@@ -39,7 +40,7 @@ def translate(message):
 
 
 def rewrite_recipient_address(addr, allowed_domains, allowed_recipients,
-                              rewrite_domain):
+                              rewrite_domain, rewrite_recipient):
     """
     Given a destination email address, determine if it is acceptable to
     deliver email directly to this address. If it is not then we rewrite the
@@ -63,13 +64,14 @@ def rewrite_recipient_address(addr, allowed_domains, allowed_recipients,
         logger.debug("%r matches ALLOWED_DOMAIN '%s'", addr, domain)
         return addr
 
-    # FIXME: this needs to be more robust, but for now we shall simply replace
-    # any `@` or `+` symbols from the ``addr`` and making this the localpart
-    # of an address at the destination mail exchange.
     localpart = addr
     for pat, repl in TRANS.items():
         localpart = re.sub(pat, repl, localpart)
 
-    output = '@'.join([localpart, rewrite_domain])
+    if rewrite_recipient:
+        mailbox, domain = rewrite_recipient.split(u'@', 1)
+        output = '{0}+{1}@{2}'.format(mailbox, localpart, domain)
+    else:
+        output = '{0}@{1}'.format(localpart, rewrite_domain)
     logger.warning('rewriting %r -> %r', addr, output)
     return output
