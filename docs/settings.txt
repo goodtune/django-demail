@@ -84,3 +84,36 @@ list that belongs in this domain will never be transformed. Example::
         'example.com',
         'foobar.com',
     )
+
+
+.. setting:: DEMAIL_REWRITE_DOMAIN
+
+DEMAIL_REWRITE_DOMAIN
+---------------------
+
+Default: ``'example.com'``
+
+The domain part of the transformed email address. Typically used with a mail
+exchanger configured to catch all email on a particular domain in a single
+mailbox. Example::
+
+    DEMAIL_REWRITE_DOMAIN = u'test.mydomain.net'
+
+If the original destination was ``user@somehost.org`` this would be redirected
+to ``user=somehost.org@test.mydomain.net``.
+
+
+.. setting:: DEMAIL_REWRITE_RECIPIENT
+
+DEMAIL_REWRITE_RECIPIENT
+------------------------
+
+Default: ``None``
+
+If you have a specific mailbox which needs to receive all rewritten emails.
+Example::
+
+    DEMAIL_REWRITE_RECIPIENT = u'test@mydomain.net'
+
+If the original destination was ``user@somehost.org`` this would be redirected
+to ``test+user=somehost.org@mydomain.net``.
