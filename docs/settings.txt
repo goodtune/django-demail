@@ -55,21 +55,6 @@ Example::
         return 'user@example.com'
 
 
-.. setting:: DEMAIL_ALLOWED_RECIPIENTS
-
-DEMAIL_ALLOWED_RECIPIENTS
--------------------------
-
-Default: ``()`` (Empty tuple)
-
-A tuple of white-listed recipient email addresses. Any email address in
-this list will never be transformed. Example::
-
-    DEMAIL_ALLOWED_RECIPIENTS = (
-        'user@example.com',
-    )
-
-
 .. setting:: DEMAIL_ALLOWED_DOMAINS
 
 DEMAIL_ALLOWED_DOMAINS
@@ -83,6 +68,21 @@ list that belongs in this domain will never be transformed. Example::
     DEMAIL_ALLOWED_DOMAINS = (
         'example.com',
         'foobar.com',
+    )
+
+
+.. setting:: DEMAIL_ALLOWED_RECIPIENTS
+
+DEMAIL_ALLOWED_RECIPIENTS
+-------------------------
+
+Default: ``()`` (Empty tuple)
+
+A tuple of white-listed recipient email addresses. Any email address in
+this list will never be transformed. Example::
+
+    DEMAIL_ALLOWED_RECIPIENTS = (
+        'user@example.com',
     )
 
 
