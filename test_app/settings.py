@@ -27,6 +27,8 @@ INSTALLED_APPS = (
     'demail',
 )
 
+MIDDLEWARE_CLASSES = ()
+
 # Critical that the DEMAIL_BACKEND defaults to LocMem as this is what the test
 # environment will expect. Inspecting the ``mail.outbox`` in tests will fail
 # if the test case uses a different backend.
