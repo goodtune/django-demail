@@ -1,5 +1,7 @@
 # Delegated Email Backend
 
+[![Build Status](https://travis-ci.org/goodtune/django-demail.svg?branch=master)](https://travis-ci.org/goodtune/django-demail)
+
 This is a reusable email backend that will rewrite the recipient lists on any
 messages to ensure they are not leaked to users in pre-production environments.
 
